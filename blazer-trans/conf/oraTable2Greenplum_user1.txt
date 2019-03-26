@@ -1,0 +1,4 @@
+#OWNER , NAME , TYPE
+#
+custlist
+signal

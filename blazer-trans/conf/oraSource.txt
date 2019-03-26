@@ -1,0 +1,10 @@
+#OWNER , NAME , TYPE
+--******* ��ͷ PKG_KPS start ʯ���� ***
+user1,GETDESC,FUNCTION
+user1,GETESC,FUNCTION
+user1,PKG_KPS,PACKAGE
+user1,PKG_KPS,PACKAGE BODY
+--******* ��ͷ PKG_KPS start ʯ���� ***
+++GRANT EXECUTE ON PKG_ to USER2;
+++alter PACKAGE user1.PKG compile;
+++alter PACKAGE user1.PKG compile;

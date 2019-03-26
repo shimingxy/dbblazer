@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans     
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context 
+	        http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/util     
+	        http://www.springframework.org/schema/util/spring-util.xsd">
+ 	   
+    <!-- Application properties configs  -->
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+	   	  <value>/pipeline/config/applicationConfig.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+	
+	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
+    <context:component-scan base-package="com.connsec.dao.service" />
+ 	
+ 	<!-- Datastore configuration  -->
+ 	<import resource="database.xml"/>
+
+ 	<bean id="dllExport" class="com.blazer.ddl.DDLExport">
+ 		<property name="dataSource" ref="sourceDataSource"/>
+		<property name="url" value="${source.datasource.url}"/>
+ 		<property name="user" value="${source.datasource.username}"/> 
+ 		<property name="tablePrefix" value="DWMART."/> 
+ 		<property name="grantUser" value=""/> 
+ 		<property name="owner" value="USER"/>
+ 		<property name="engine" value=""/>
+ 		<property name="toDbType" value="Greenplum"/>
+ 		<property name="configFilePath" value="#{systemProperties['APPRUNNER_PATH']}/conf/oraTable2Greenplum_user.txt"/>
+ 		<property name="exportFilePath" value="#{systemProperties['APPRUNNER_PATH']}/export/exportOracle2Greenplum.sql"/>
+ 	</bean>
+ 	
+ 	<!-- 配置执行的任务列表  -->
+ 	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
+ 		<ref bean="dllExport"/>
+ 	</util:list>
+ 	
+</beans>

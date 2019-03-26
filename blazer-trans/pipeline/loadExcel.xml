@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans     
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context 
+	        http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/util     
+	        http://www.springframework.org/schema/util/spring-util.xsd">
+ 	<!-- 
+ 	<import resource="applicationContext-task.xml"/>
+ 	-->
+ 	<!-- Application properties configs  -->
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+	   	  	<value>/pipeline/config/applicationConfig.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+ 	
+ 	<!-- Datastore configuration  -->
+ 	<import resource="database.xml"/>
+ 	
+ 	<bean id="transDataLoad_SIGNAL" class="com.blazer.load.file.runner.TransDataLoadFile">
+ 		<property name="sourceDataSource" ref="sourceDataSource_suser"/>
+ 		<property name="commitNumber" value="100"/>
+ 		<property name="limitTextSize" value="0"/>
+ 		<property name="tableName" value="SIGNAL"/>
+ 		<property name="loadFileName" value="signal"/>
+ 		<property name="fileType" value="xls"/>
+ 		<property name="loadFilePath" value="D:/dmp/"/>
+ 		<property name="skipFirstRow" value="true"/>
+ 		
+ 		<property name="fileNameSuffix" value=".xls"/>
+ 		<property name="terminatedString" value="|+|"/>
+ 		<property name="listTableColumns" > 
+ 			<util:list  list-class="java.util.ArrayList">
+				<bean class="com.db.TableColumns">
+					<property name="columnName" value="signalno"/>
+ 					<property name="dataType" value="VARCHAR"/>
+				</bean>
+				<bean class="com.db.TableColumns">
+					<property name="columnName" value="signalname"/>
+ 					<property name="dataType" value="VARCHAR"/>
+				</bean>
+		 	</util:list>
+ 		</property>
+ 		
+ 	</bean>
+ 	
+ 	<bean id="transDataLoad" class="com.blazer.load.file.TransDataLoad">
+ 		<property name="sourceDataSource" ref="sourceDataSource_user"/>
+		<property name="fromUrl" value="${source.datasource.url}"/>
+ 		<property name="fromUser" value="${source.datasource.username}"/> 
+ 		<property name="threadSize" value="10"/>
+ 		<property name="loadFilePath" value="D:/dmp/"/>
+ 		<property name="transDataLoadFileList" > 
+ 			<util:list  list-class="java.util.ArrayList">
+				<ref bean="transDataLoad_SIGNAL"/>
+		 	</util:list>
+ 		</property>
+ 	</bean>
+ 
+ 	<!-- 配置执行的任务列表  -->
+ 	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
+		<ref bean="transDataLoad"/>
+ 	</util:list>
+</beans>

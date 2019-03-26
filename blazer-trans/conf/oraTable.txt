@@ -1,0 +1,4 @@
+#OWNER , NAME , TYPE
+#******* ��ͷ PKG_RPT start ʯ���� ***
+BC_LIST;
+ORG_SURVEY;

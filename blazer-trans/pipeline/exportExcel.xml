@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans     
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context 
+	        http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/util     
+	        http://www.springframework.org/schema/util/spring-util.xsd">
+ 	<!-- 
+ 	<import resource="applicationContext-task.xml"/>
+ 	-->
+ 	<!-- Application properties configs  -->
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+	   	  	<value>/pipeline/config/applicationConfig.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+ 	
+ 	<!-- Datastore configuration  -->
+ 	<import resource="database.xml"/>
+ 	
+ 		
+ 	<bean id="transDataExport_SIGNAL" class="com.blazer.export.file.TransDataExport">
+ 		<property name="sourceDataSource" ref="sourceDataSource_rwmsuser"/>
+		<property name="fromUrl" value="${source.datasource.url}"/>
+ 		<property name="fromUser" value="${source.datasource.username}"/> 
+ 		<property name="commitNumber" value="400"/>
+		<property name="threadSize" value="1"/>
+		<property name="fileType" value="xlsx"/>
+ 		<property name="tableName" value="SIGNAL"/>
+ 		<property name="outFileName" value="SIGNAL_{yyyyMMdd}_000_000"/>
+ 		<property name="exportFilePath" value="D:/dmp/"/>
+ 		<property name="fileNameSuffix" value=".xls"/>
+ 		<property name="terminatedString" value="|+|"/>
+		<!--
+		<property name="whereSqlString" value="where length(body)&gt;10000 and length(body)&lt;50000"/>
+ 		<property name="whereSqlString" value="where  length(body)&lt;10000"/>
+		<property name="whereSqlString" value="where length(body)&gt;10000 and length(body)&lt;50000" and ETL_FLAG='_EXPORT_ETL_DATE_'/>
+		-->
+		<property name="whereSqlString" value=""/>
+ 		<property name="selectFieldsString" value="
+ 	signalno           ,
+  	signalname        
+ 		"/>
+
+ 	</bean>
+
+ 	
+ 	<!-- 配置执行的任务列表  -->
+ 	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
+		<ref bean="transDataExport_SIGNAL"/>
+ 		<!-- 
+ 		<ref bean="oraCtlLoadExport"/>
+ 		<ref bean="oraDataLineExport"/>
+		<ref bean="db2MaxRecord2Table"/>
+ 		<ref bean="db2DDL2Oracle"/>
+		<ref bean="transData"/>
+		
+ 		 -->
+ 	</util:list>
+</beans>

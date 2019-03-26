@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans     
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context 
+	        http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/util     
+	        http://www.springframework.org/schema/util/spring-util.xsd">
+ 	   
+    <!-- Application properties configs  -->
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+	   	   <value>/pipeline/config/applicationConfig.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+	
+	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
+    <context:component-scan base-package="com.connsec.dao.service" />
+ 	
+ 	<!-- Datastore configuration  -->
+ 	<import resource="database.xml"/>
+ 	<!--
+ 	<import resource="applicationContext-task.xml"/>-->
+ 	
+ 	
+ 	<!-- 配置执行的任务列表  -->
+ 	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
+		<!-- 
+ 		
+ 		<ref bean="oraCtlLoadExport"/>
+ 		<ref bean="oraDataLineExport"/>
+		<ref bean="db2MaxRecord2Table"/>
+ 		<ref bean="db2DDL2Oracle"/>
+
+		
+ 		 
+ 		 <ref bean="oraTableCsvLoadExport"/>
+ 		 <ref bean="oraTableExport_user"/>
+ 		 <ref bean="oraTableExport_msuser"/> 
+ 		
+ 		 
+ 		<ref bean="oraTableExport2Greenplum"/>
+ 		<ref bean="oraTableExport2Greenplum_i"/>
+ 		<ref bean="oraTableGreenplumI2D"/>
+ 		 -->
+ 		 
+ 	</util:list>
+ 	
+</beans>

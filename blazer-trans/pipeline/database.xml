@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="
+	     http://www.springframework.org/schema/context 
+	     http://www.springframework.org/schema/context/spring-context.xsd
+	     http://www.springframework.org/schema/beans 
+	     http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- dataSource define begin -->
+	<!-- c3p0 configuration -->
+	<bean id="sourceDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close" >      
+	    <property name="driverClass" value="${source.datasource.driverclass}"/>      
+	    <property name="jdbcUrl" value="${source.datasource.url}"/>      
+	    <property name="user" value="${source.datasource.username}"/>      
+	    <property name="password" value="${source.datasource.password}"/>      
+	</bean> 
+	
+	<bean id="sourceDataSource_agov" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close" >      
+	    <property name="driverClass" value="${source.datasource.driverclass}"/>      
+	    <property name="jdbcUrl" value="${source.datasource.url}"/>      
+	    <property name="user" value="${source.datasource.sagovusername}"/>      
+	    <property name="password" value="${source.datasource.sagovpassword}"/>      
+	</bean> 
+	
+	<bean id="sourceDataSource_user" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close" >      
+	    <property name="driverClass" value="${source.datasource.driverclass}"/>      
+	    <property name="jdbcUrl" value="${source.datasource.url}"/>      
+	    <property name="user" value="${source.datasource.username}"/>      
+	    <property name="password" value="${source.datasource.password}"/>      
+	</bean>
+	
+	<bean id="sourceDataSource_msuser" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close" >      
+	    <property name="driverClass" value="${source.datasource.driverclass}"/>      
+	    <property name="jdbcUrl" value="${source.datasource.url}"/>      
+	    <property name="user" value="${source_rwmsuser.datasource.username}"/>      
+	    <property name="password" value="${source_rwmsuser.datasource.password}"/>      
+	</bean> 
+	
+	
+	
+	<bean id="targetDataSource_suser" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close" >      
+	    <property name="driverClass" value="${target.datasource.driverclass}"/>      
+	    <property name="jdbcUrl" value="${target.datasource.url}"/>      
+	    <property name="user" value="${source_rwmsuser.datasource.username}"/>      
+	    <property name="password" value="${tsource_rwmsuser.datasource.password}"/>      
+	</bean>
+	
+	<bean id="targetDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"  destroy-method="close" >      
+	    <property name="driverClass" value="${target.datasource.driverclass}"/>      
+	    <property name="jdbcUrl" value="${target.datasource.url}"/>      
+	    <property name="user" value="${target.datasource.username}"/>      
+	    <property name="password" value="${target.datasource.password}"/>      
+	</bean> <!--  -->
+	<!-- dataSource define end -->
+</beans>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans     
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context 
+	        http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/util     
+	        http://www.springframework.org/schema/util/spring-util.xsd">
+ 	   
+    <!-- Application properties configs  -->
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	  <property name="locations">
+	    <list>
+	   	  <value>/pipeline/config/applicationConfig.properties</value>
+	    </list>
+	  </property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+	
+	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
+    <context:component-scan base-package="com.blazer" />
+ 	
+ 	<!-- Datastore configuration  -->
+ 	<import resource="database.xml"/>
+ 	
+ 	<!-- FULL      在插入前进行删除,默认    -->
+	<!-- INCREMENT 先清除条件相关数据，然后按照条件进行增量插入 -->
+ 	<bean id="transData" class="com.blazer.trans.TransData">
+ 		<property name="sourceDataSource" ref="sourceDataSource_user"/>
+		<property name="fromUrl" value="${source.datasource.url}"/>
+ 		<property name="fromUser" value="${source_rwmsuser.datasource.username}"/> 
+ 		
+ 		<property name="targetDataSource" ref="greenplum_test"/>
+ 		<property name="toUrl" value="${datasource171.url}"/>
+ 		<property name="toUser" value="${datasource171.username}"/> 
+ 		
+ 		<property name="transType" value="FULL"/> 
+ 		<property name="tablesList" > 
+ 			<util:list  list-class="java.util.ArrayList">
+ 				<!-- 
+ 				<bean class="com.db.TableDescribe">
+ 					<property name="tableName" value="SIGNAL"/> 
+ 					<property name="targetTableName" value="SIGNALGE"/> 
+ 				</bean>
+ 				<bean class="com.db.TableDescribe">
+ 					<property name="tableName" value="CALENDAR"/> 
+ 					<property name="targetTableName" value="M_CALENDAR"/> 
+ 				</bean>
+ 				 -->
+ 				<bean class="com.db.TableDescribe">
+ 					<property name="tableName" value="SIGNAL"/> 
+ 					<property name="targetTableName" value="SIGNAL"/> 
+ 				</bean>
+ 				
+ 			</util:list>
+ 		</property>
+ 	</bean>
+ 	
+ 
+
+ 	<!-- 配置执行的任务列表  -->
+ 	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
+ 		<ref bean="transData"/>
+ 	</util:list>
+ 	
+</beans>
