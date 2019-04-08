@@ -32,25 +32,19 @@
  	<bean id="transData" class="com.blazer.trans.TransData">
  		<property name="sourceDataSource" ref="sourceDataSource_user"/>
 		<property name="fromUrl" value="${source.datasource.url}"/>
- 		<property name="fromUser" value="${source_rwmsuser.datasource.username}"/> 
+ 		<property name="fromUser" value="${source.datasource.username}"/> 
  		
  		<property name="targetDataSource" ref="greenplum_test"/>
- 		<property name="toUrl" value="${datasource171.url}"/>
- 		<property name="toUser" value="${datasource171.username}"/> 
+ 		<property name="toUrl" value="${datasource_greenplum.url}"/>
+ 		<property name="toUser" value="${datasource_greenplum.username}"/> 
  		
  		<property name="transType" value="FULL"/> 
  		<property name="tablesList" > 
  			<util:list  list-class="java.util.ArrayList">
- 				<!-- 
- 				<bean class="com.db.TableDescribe">
- 					<property name="tableName" value="SIGNAL"/> 
- 					<property name="targetTableName" value="SIGNALGE"/> 
- 				</bean>
  				<bean class="com.db.TableDescribe">
  					<property name="tableName" value="CALENDAR"/> 
  					<property name="targetTableName" value="M_CALENDAR"/> 
  				</bean>
- 				 -->
  				<bean class="com.db.TableDescribe">
  					<property name="tableName" value="SIGNAL"/> 
  					<property name="targetTableName" value="SIGNAL"/> 
