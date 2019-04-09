@@ -135,11 +135,9 @@ echo run finished
  	   
 	<!-- Application properties configs  应用程序属性配置文件-->
 	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-	  <property name="locations">
-	    <list>
-	   	  <value>/pipeline/config/applicationConfig.properties</value>
-	    </list>
-	  </property>
+	  <property name="locations"><list>
+	   	 <value>/pipeline/config/applicationConfig.properties</value>
+	  </list></property>
 	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
 	
@@ -202,11 +200,9 @@ echo run finished
 			
  	<!-- Application properties configs  应用程序属性配置文件-->
 	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-	  <property name="locations">
-	    <list>
-	   	  	<value>/pipeline/config/applicationConfig.properties</value>
-	    </list>
-	  </property>
+	  <property name="locations"><list>
+	   	 <value>/pipeline/config/applicationConfig.properties</value>
+	  </list></property>
 	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
  	
@@ -270,7 +266,7 @@ echo run finished
  	</util:list>
 </beans>
 ```
-###### 数据文件导入到数据库
+###### 数据文件导入到数据库 pipeLine
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans 	xmlns="http://www.springframework.org/schema/beans"
@@ -287,11 +283,9 @@ echo run finished
 
  	<!-- Application properties configs  应用程序属性配置文件-->
 	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-	  <property name="locations">
-	    <list>
-	   	  	<value>/pipeline/config/applicationConfig.properties</value>
-	    </list>
-	  </property>
+	  <property name="locations"><list>
+	   	 <value>/pipeline/config/applicationConfig.properties</value>
+	  </list></property>
 	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
 	</bean>
  	
@@ -375,5 +369,58 @@ echo run finished
  	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
 		<ref bean="transDataLoad"/>
  	</util:list>
+</beans>
+```
+###### 数据表结构导出成制定数据库DDL pipeLine
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 	xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="
+	        http://www.springframework.org/schema/beans     
+	        http://www.springframework.org/schema/beans/spring-beans.xsd
+	        http://www.springframework.org/schema/context 
+	        http://www.springframework.org/schema/context/spring-context.xsd
+	        http://www.springframework.org/schema/util     
+	        http://www.springframework.org/schema/util/spring-util.xsd">
+   <!-- Application properties configs  应用程序属性配置文件-->
+	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+	  <property name="locations"><list>
+	   	 <value>/pipeline/config/applicationConfig.properties</value>
+	  </list></property>
+	  <property name="ignoreUnresolvablePlaceholders" value="true"/>
+	</bean>
+ 	<context:component-scan base-package="com.blazer" />
+ 	<!-- Datastore configuration /数据源配置 -->
+ 	<import resource="database.xml"/>
+	<!-- DDL导出描述文件 -->
+ 	<bean id="dllExport" class="com.blazer.ddl.DDLExport">
+		<!-- 导出数据源 -->
+ 		<property name="dataSource" ref="datasource_oracle"/>
+		<property name="url" value="${datasource_oracle.url}"/>
+ 		<property name="user" value="${datasource_oracle.username}"/> 
+		<!-- 导出数据库的owner或者schema -->
+ 		<property name="owner" value="DW"/>
+		<!-- 导出创建表的前缀 -->
+ 		<property name="tablePrefix" value="DWMART."/> 
+		<!-- 导出权限赋予用户 -->
+ 		<property name="grantUser" value=""/> 
+		<!-- 导出创建表的engine针对mysql -->
+ 		<property name="engine" value=""/>
+		<!-- 导出目标数据库类型 -->
+ 		<property name="toDbType" value="Greenplum"/>
+		<!-- 导出源数据库的表名列表 -->
+ 		<property name="configFilePath" value="#{systemProperties['APP_PATH']}/conf/oraTable2Greenplum_user.txt"/>
+		<!-- 导出创建语句的输出文件 -->
+ 		<property name="exportFilePath" value="#{systemProperties['APP_PATH']}/export/exportOracle2Greenplum.sql"/>
+ 	</bean>
+ 	
+ 	<!-- 配置执行的任务列表  -->
+ 	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
+ 		<ref bean="dllExport"/>
+ 	</util:list>
+ 	
 </beans>
 ```
