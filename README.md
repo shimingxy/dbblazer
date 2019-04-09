@@ -11,12 +11,17 @@ Blazer意为**传播者**，主要实现不同数据库之间的数据同步，�
 
 5. 目前支持数据有mysql/MariaDB,Greenplum,Oracle,DB2,PostgreSQL;
 
+6. 支持JDK支持平台，JDK1.8+
+
 ------------
 
    项目基于Java Spring Framework框架，简化了系统的配置，引入"管道"（PipeLine）的概念，一个管道包含多个任务，任务可以是数据同步、导入、导出或者表结构的导出。
 
 
-   在不同的XML中引入不同管道任务，实现不同的功能，其中pipeLine.xml描述管道的功能，需要根据需求进行定义，可以基于以下的命令内容copy出不同脚本功能。
+   在不同的XML中引入不同管道任务，实现不同的功能，其中pipeLine.xml描述管道的功能，需要根据需求进行定义，可以基于以下的命令内容copy出不同脚本功能,传入不同的"管道"实现不同的功能。
+   
+------------
+#### 脚本
 PipeLineRunner.bat
 ````bash
 @echo off
@@ -117,8 +122,8 @@ ${JAVA_EXEC} ${JAVA_OPTS} -classpath ${JAVA_CLASSPATH} ${JAVA_MAINCLASS} --confi
 
 echo run finished
 ```
-
-###### 实现Oracle到greenplum数据同步pipeLine
+#### "管道"（PipeLine）
+###### 1、实现Oracle到greenplum数据同步pipeLine
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans 	xmlns="http://www.springframework.org/schema/beans"
@@ -132,7 +137,6 @@ echo run finished
 	        http://www.springframework.org/schema/context/spring-context.xsd
 	        http://www.springframework.org/schema/util     
 	        http://www.springframework.org/schema/util/spring-util.xsd">
- 	   
 	<!-- Application properties configs  应用程序属性配置文件-->
 	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 	  <property name="locations"><list>
@@ -183,7 +187,7 @@ echo run finished
  	</util:list>
 </beans>
 ```
-###### 数据库数据导出到文件(csv,xlsx,xls)pipeLine
+###### 2、数据库数据导出到文件(csv,xlsx,xls)pipeLine
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans 	xmlns="http://www.springframework.org/schema/beans"
@@ -197,7 +201,6 @@ echo run finished
 	        http://www.springframework.org/schema/context/spring-context.xsd
 	        http://www.springframework.org/schema/util     
 	        http://www.springframework.org/schema/util/spring-util.xsd">
-			
  	<!-- Application properties configs  应用程序属性配置文件-->
 	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 	  <property name="locations"><list>
@@ -266,7 +269,7 @@ echo run finished
  	</util:list>
 </beans>
 ```
-###### 数据文件导入到数据库 pipeLine
+###### 3、数据文件导入到数据库 pipeLine
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans 	xmlns="http://www.springframework.org/schema/beans"
@@ -371,7 +374,7 @@ echo run finished
  	</util:list>
 </beans>
 ```
-###### 数据表结构导出成制定数据库DDL pipeLine
+###### 4、数据表结构导出特定数据库DDL pipeLine
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans 	xmlns="http://www.springframework.org/schema/beans"
@@ -385,7 +388,7 @@ echo run finished
 	        http://www.springframework.org/schema/context/spring-context.xsd
 	        http://www.springframework.org/schema/util     
 	        http://www.springframework.org/schema/util/spring-util.xsd">
-   <!-- Application properties configs  应用程序属性配置文件-->
+	<!-- Application properties configs  应用程序属性配置文件-->
 	<bean id="propertySourcesPlaceholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 	  <property name="locations"><list>
 	   	 <value>/pipeline/config/applicationConfig.properties</value>
@@ -421,6 +424,5 @@ echo run finished
  	<util:list id="pipeLineTask" list-class="java.util.ArrayList">
  		<ref bean="dllExport"/>
  	</util:list>
- 	
 </beans>
 ```
