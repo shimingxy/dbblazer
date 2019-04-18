@@ -26,6 +26,7 @@ public class PipeLineRunner {
 	public static void main(String[] args)  {
 		PipeLineRunner runner=new PipeLineRunner();
 		try{
+			PathUtils.getInstance();
 			//List Environment Variables
 			runner.listEnvVars();
 			new JCommander(runner.runnerArgs, args);
@@ -41,18 +42,7 @@ public class PipeLineRunner {
 	
 	//Initialization ApplicationContext for Project
 	public void init(String[] args){
-		String path_str=PipeLineRunner.class.getResource("app.properties").getFile().toString();
-		String appClassPath=path_str.substring(0,path_str.indexOf("com"));
-		String appPath=path_str.substring(
-							 	path_str.startsWith("/")?1:0,
-							 	path_str.indexOf("/bin")
-							 );
 		
-		System.setProperty("APP_CLASSPATH",appClassPath);
-		System.setProperty("APP_PATH",appPath);
-		
-		_logger.info("Application Class Path "+System.getProperty("APP_CLASSPATH"));
-		_logger.info("Application Path "+System.getProperty("APP_PATH"));
 		_logger.info("user.dir "+System.getProperty("user.dir"));
 			
 		if(runnerArgs.sqlWhere!=null){
