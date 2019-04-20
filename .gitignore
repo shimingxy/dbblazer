@@ -3,6 +3,9 @@
 *.class
 */bin/*
 bin/*
- 
+
 # Log file
 *.log
+*.log.*
+*/jdk/*
+jdk/*
