@@ -3,10 +3,9 @@ description = "blazer-trans"
 dependencies {
 	//local jars
 	compile fileTree(dir: '../blazer-lib/spring/', include: '*.jar')
-	compile fileTree(dir: '../blazer-lib/spring-security/', include: '*.jar')
 	compile fileTree(dir: '../blazer-lib/apache/', include: '*.jar')
+	compile fileTree(dir: '../blazer-lib/hadoop/', include: '*.jar')
 	compile fileTree(dir: '../blazer-lib/db/', include: '*.jar')
-	compile fileTree(dir: '../blazer-lib/tiles/', include: '*.jar')
 	compile fileTree(dir: '../blazer-lib/common/', include: '*.jar')
 	compile fileTree(dir: '../blazer-lib/xml/', include: '*.jar')
 	compile fileTree(dir: '../blazer-lib/json/', include: '*.jar')

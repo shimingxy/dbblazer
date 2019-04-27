@@ -7,5 +7,6 @@ bin/*
 # Log file
 *.log
 *.log.*
+*/logs/*
 */jdk/*
 jdk/*
