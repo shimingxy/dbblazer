@@ -41,6 +41,11 @@ public class TransDataExport extends BasicConfigure implements PipeLineTask{
 	SimpleDateFormat sdf_ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	BasicConfigure basicConfigure;
 	public int successThreadCount;
+	/**
+	 * -1 is error
+	 * 0  no data 
+	 * grater 0 data count
+	 */
 	public static long[] successThread = null;
 	public static CountDownLatch mCountDownLatch = null;
 	FileOutputStream fop = null;
@@ -179,6 +184,7 @@ public class TransDataExport extends BasicConfigure implements PipeLineTask{
 		long endRow=0;
 		String threadSql="";
 		for(int i=1;i<=threadSize;i++){
+			successThread[i-1]=-1;
 			if(threadSize!=i){
 				endRow=endRow+threadRecordsCount;
 				//_logger.info("--thread "+i+" recordsCount : "+(threadRecordsCount));
@@ -210,7 +216,7 @@ public class TransDataExport extends BasicConfigure implements PipeLineTask{
 		successThreadCount=0;
 		long commitDataCount=0;
 		for (long successCount : successThread) {
-			if(successCount>=1) {
+			if(successCount>=0) {//error is -1
 				successThreadCount++;
 				commitDataCount=commitDataCount+successCount;
 			}
