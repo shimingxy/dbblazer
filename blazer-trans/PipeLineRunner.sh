@@ -1,5 +1,5 @@
 #!/bin/bash
-JAVA_HOME=/opt/java6
+sh setenv.sh
 
 JAVA_MARK=PipeLineRunner
 JAVA_OPTS=" -Xms128m "

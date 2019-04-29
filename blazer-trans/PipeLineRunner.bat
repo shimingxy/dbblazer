@@ -1,5 +1,5 @@
 @echo off
-SET JAVA_HOME=%cd%/jre
+call setenv.bat
 
 SET JAVA_MARK=PipeLineRunner
 SET JAVA_OPTS=" -Xms128m "
