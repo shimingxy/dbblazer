@@ -27,7 +27,7 @@ Blazer意为**传播者**，主要实现不同数据库之间的数据同步，�
 WINDOWS PipeLineRunner.bat
 ````bash
 @echo off
-SET JAVA_HOME=%cd%/jre
+CALL setenv.bat
 
 SET JAVA_MARK=PipeLineRunner
 SET JAVA_OPTS=" -Xms128m "
@@ -82,7 +82,7 @@ PAUSE
 LINUX UNIX PipeLineRunner.sh
 ```shell
 #!/bin/bash
-JAVA_HOME=/opt/java6
+sh setenv.sh
 
 JAVA_MARK=PipeLineRunner
 JAVA_OPTS=" -Xms128m "
