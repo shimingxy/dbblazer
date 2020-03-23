@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.blazer.export.file.runner.TransDataExport2Csv;
+import com.blazer.export.file.runner.TransDataExport2Sql;
 import com.blazer.export.file.runner.TransDataExport2Xlsx;
 import com.blazer.pipeline.PipeLineTask;
 
@@ -306,6 +307,11 @@ public class TransDataExport extends BasicConfigure implements PipeLineTask{
 		Runnable transThread =null;
 		if(this.fileType.equalsIgnoreCase("csv")||this.fileType.equalsIgnoreCase("txt")) {
 			transThread =new TransDataExport2Csv(sourceDataSource,
+					 commitNumber,  threadNumber,
+					 tableName,  outFileName,  fileNameSuffix,
+					 terminatedString,  threadSql,  exportFilePath,limitTextSize);
+		}if(this.fileType.equalsIgnoreCase("sql")) {
+			transThread =new TransDataExport2Sql(sourceDataSource,
 					 commitNumber,  threadNumber,
 					 tableName,  outFileName,  fileNameSuffix,
 					 terminatedString,  threadSql,  exportFilePath,limitTextSize);
