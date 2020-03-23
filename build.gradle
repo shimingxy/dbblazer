@@ -95,6 +95,12 @@ subprojects {
          compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.6.2'
          compile group: 'org.apache.commons', name: 'commons-email', version: '1.5'
          compile group: 'org.apache.commons', name: 'not-yet-commons-ssl', version: '0.3.9'
+		 compile group: 'org.apache.poi', name: 'poi', version: "${poiVersion}"
+		 compile group: 'org.apache.poi', name: 'poi-ooxml', version: "${poiVersion}"
+		 compile group: 'org.apache.poi', name: 'poi-ooxml-schemas', version: "${poiVersion}"
+		 compile group: 'org.apache.poi', name: 'poi-excelant', version: "${poiVersion}"
+		 compile group: 'org.apache.poi', name: 'poi-scratchpad', version: "${poiVersion}"
+
 		//logs
          compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: "${log4jVersion}"
          compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: "${log4jVersion}"
@@ -118,15 +124,15 @@ subprojects {
          compile group: 'org.springframework', name: 'spring-expression', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-instrument', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-jcl', version: "${springVersion}"
-         compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
+         //compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-jms', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-messaging', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-orm', version: "${springVersion}"
-         compile group: 'org.springframework', name: 'spring-oxm', version: "${springVersion}"
-         compile group: 'org.springframework', name: 'spring-tx', version: "${springVersion}"
-         compile group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
+         //compile group: 'org.springframework', name: 'spring-oxm', version: "${springVersion}"
+         //compile group: 'org.springframework', name: 'spring-tx', version: "${springVersion}"
+         //compile group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-webflux', version: "${springVersion}"
-         compile group: 'org.springframework', name: 'spring-webmvc', version: "${springVersion}"
+         //compile group: 'org.springframework', name: 'spring-webmvc', version: "${springVersion}"
          //compile group: 'org.springframework', name: 'spring-websocket', version: "${springVersion}"
 		 testCompile group: 'org.springframework', name: 'spring-test', version: "${springVersion}"
  
@@ -155,13 +161,16 @@ subprojects {
          compile group: 'com.fasterxml', name: 'classmate', version: '1.5.0'
 		 compile group: 'com.alibaba', name: 'fastjson', version: '1.2.66'
          
-         compile group: 'org.reactivestreams', name: 'reactive-streams', version: '1.0.2'
-         compile group: 'io.projectreactor', name: 'reactor-core', version: '3.2.10.RELEASE'
-         compile group: 'eu.tekul', name: 'szxcvbn_2.9.2', version: '0.2'
          //quartz
          compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.2'
+		 
+		 compile group: 'com.beust', name: 'jcommander', version: '1.48'
+
          
 		 //database
+		 //compile group: 'oracle', name: 'ojdbc6', version: '11.2.0.3'
+		 //compile group: 'com.ibm.db2', name: 'jcc', version: '11.1.4.4'
+		 //compile group: 'com.ibm.db2', name: 'db2jcc_license_cu', version: '9.7'
 		 compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.48'
 		 compile group: 'com.alibaba', name: 'druid', version: '1.1.21'
 		 
