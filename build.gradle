@@ -204,7 +204,7 @@ subprojects {
          
     	 //local jars
     	 compile fileTree(dir: "${rootDir}/blazer-lib/", include: '*.jar')
-    	 compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-logging-juli', version: '8.5.2'
+    	 //compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-logging-juli', version: '8.5.2'
     }
   
   
