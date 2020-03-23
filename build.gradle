@@ -87,8 +87,6 @@ subprojects {
 	dependencies {  
 		 testCompile 'junit:junit:4.11' 
     	 compileOnly 'junit:junit:4.11'  
-    	 testCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
-    	 compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
          //apache
          compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
          compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
@@ -132,19 +130,6 @@ subprojects {
          compile group: 'org.springframework', name: 'spring-context-indexer', version: "${springVersion}"
          compile group: 'org.springframework', name: 'spring-context-support', version: "${springVersion}"
          compile group: 'org.springframework', name: 'spring-expression', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-instrument', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-jcl', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-jdbc', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-jms', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-messaging', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-orm', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-oxm', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-tx', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-web', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-webflux', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-webmvc', version: "${springVersion}"
-         //compile group: 'org.springframework', name: 'spring-websocket', version: "${springVersion}"
-		 testCompile group: 'org.springframework', name: 'spring-test', version: "${springVersion}"
  
          compile group: 'org.javassist', name: 'javassist', version: '3.23.0-GA'
          compile group: 'org.owasp.esapi', name: 'esapi', version: '2.2.0.0'
@@ -208,13 +193,10 @@ subprojects {
 		 compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'
 		 testCompile group: 'xmlunit', name: 'xmlunit', version: '1.6'
 		 
-         //compile group: 'com.belerweb', name: 'pinyin4j', version: '2.5.1'
-         
          testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
          
     	 //local jars
     	 compile fileTree(dir: "${rootDir}/blazer-lib/", include: '*.jar')
-    	 //compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-logging-juli', version: '8.5.2'
     }
   
   
@@ -263,7 +245,7 @@ subprojects {
 		into "$rootDir/build/depjars"
 	}
 	task buildRelease(dependsOn:['build','jar','copyjar2Release','copyDepJars'])  {
-	   println 'Build MaxKey '+project.name +' complete .'
+	   println 'Build blazer '+project.name +' complete .'
 	}
 	
 
