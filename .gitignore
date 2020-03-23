@@ -3,10 +3,32 @@
 *.class
 */bin/*
 bin/*
+/bin
+/*/*/bin/*
+/.gradle/*
 
 # Log file
 *.log
 *.log.*
 */logs/*
+/log
+
 */jdk/*
-jdk/*
+
+*/.settings/*
+/.settings
+.metadata/*
+.metadata/*/*
+.metadata/*/*/*
+.metadata/*/*/*/*
+*/org/apache/mybatis/jpa/*
+
+*/build/*
+build/*
+/build
+/*/*/build/*/*
+/*/build/*/*
+*/META-INF/MANIFEST.MF
+/*/*/.gitignore
+/*/.gitignore
+/.gradle/
